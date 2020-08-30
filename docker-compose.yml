@@ -2,6 +2,9 @@ version: '3'
 services:
   composer-install:
     build: ./composer
+    volumes:
+      - ./html:/html
+      - ./config/composer/auth.json:/root/.composer/auth.json
   web:
     image: nginx:1.12
     ports: 
@@ -12,6 +15,7 @@ services:
     links:
       - php
     depends_on:
+      - composer-install
       - php
   php:
     build: ./php
@@ -20,6 +24,7 @@ services:
     links:
       - db
     depends_on:
+      - composer-install
       - db
   db:
     image: mysql:5.7.28
@@ -28,5 +33,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: magento
+    depends_on:
+      - composer-install
   elasticsearch:
     image: elasticsearch:6.8.4
+    depends_on:
+      - composer-install
+  redis:
+    image: "redis:alpine"

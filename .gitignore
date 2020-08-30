@@ -1,2 +1,3 @@
 html
 db/data
+config/composer/auth.json
