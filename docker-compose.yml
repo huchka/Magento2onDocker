@@ -1,5 +1,7 @@
 version: '3'
 services:
+  composer-install:
+    build: ./composer
   web:
     image: nginx:1.12
     ports: 
@@ -26,3 +28,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: magento
+  elasticsearch:
+    image: elasticsearch:6.8.4
