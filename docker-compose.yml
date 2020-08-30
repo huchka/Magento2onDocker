@@ -13,8 +13,16 @@ services:
       - php
   php:
     build: ./php
-    ports:
-      - "9080:9000"
     volumes:
       - ./html:/var/www/html
-
+    links:
+      - db
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7.28
+    volumes:
+      - ./db/data:/var/lib/mysql:delegated
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: magento
