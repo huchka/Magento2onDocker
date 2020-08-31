@@ -21,7 +21,6 @@ services:
     links:
       - php
     depends_on:
-      - composer-install
       - php
   php:
     build: ./php
@@ -33,7 +32,6 @@ services:
       - redis-sessions
       - elasticsearch
     depends_on:
-      - composer-install
       - db
   db:
     image: mysql:5.7.31
@@ -42,14 +40,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: magento
-    depends_on:
-      - composer-install
   elasticsearch:
     image: elasticsearch:7.9.0
     environment:
       - discovery.type=single-node
-    depends_on:
-      - composer-install
   redis-cache:
     image: redis:alpine
   redis-sessions:
