@@ -4,8 +4,6 @@ LABEL maintainer="Khureltulga Dashdavaa <huchka@yahoo.com>"
 
 RUN apt-get update -qq && apt-get install git curl wget unzip -y
 
-RUN bash -c "wget http://getcomposer.org/composer-1.phar && mv composer-1.phar /usr/local/bin/composer"
-
 RUN apt-get install -y \
     libfreetype6-dev \ 
     libicu-dev \ 
@@ -16,6 +14,8 @@ RUN apt-get install -y \
     sendmail-bin \ 
     sendmail \ 
     sudo
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr
 
 RUN docker-php-ext-install \
   dom \ 
@@ -30,7 +30,7 @@ RUN docker-php-ext-install \
   pcntl \ 
   sockets
 
-RUN chmod 755 /usr/local/bin/composer
+RUN bash -c "wget http://getcomposer.org/composer-1.phar && mv composer-1.phar /usr/local/bin/composer && chmod 755 /usr/local/bin/composer"
 
 WORKDIR /html
 

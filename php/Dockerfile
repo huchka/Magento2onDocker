@@ -3,7 +3,7 @@ FROM php:7.2-fpm
 LABEL maintainer="Khureltulga Dashdavaa <huchka@yahoo.com>"
 
 # Install dependencies
-RUN apt-get update \
+RUN apt-get update -qq \
   && apt-get install -y \
     libfreetype6-dev \ 
     libicu-dev \ 
@@ -14,6 +14,8 @@ RUN apt-get update \
     sendmail-bin \ 
     sendmail \ 
     sudo
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr
 
 RUN docker-php-ext-install \
   dom \ 
