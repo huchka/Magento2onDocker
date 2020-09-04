@@ -33,5 +33,3 @@ RUN docker-php-ext-install \
 RUN bash -c "wget http://getcomposer.org/composer-1.phar && mv composer-1.phar /usr/local/bin/composer && chmod 755 /usr/local/bin/composer"
 
 WORKDIR /html
-
-# RUN composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition 2.3.5 html
