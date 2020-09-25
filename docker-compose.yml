@@ -1,14 +1,17 @@
 version: '3'
 services:
+  # magentoをダウンロードするため
   composer-install:
     build: ./composer
     volumes:
       - ./html:/html:delegated
       - ./config/composer/auth.json:/root/.composer/auth.json
+  # ウェブサーバ
   nginx:
     image: nginx:1.12
     ports: 
       - 80:80
+    # magentoコードとnginx設定ファイルの共有
     volumes:
       - ./html:/var/www/html:delegated
       - ./config/nginx/magento.conf:/etc/nginx/conf.d/default.conf:cached
@@ -16,6 +19,7 @@ services:
       - php
     depends_on:
       - php
+  # phpサーバ
   php:
     build: ./php
     volumes:
